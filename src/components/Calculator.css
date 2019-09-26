@@ -50,8 +50,7 @@
     display: flex; 
 }
 .function-keys button {
-    /* background-color: lightgray; */
-    background-color: yellow; 
+    background-color: lightgray;    
     border: groove; 
 }
 .numeric-keys {
