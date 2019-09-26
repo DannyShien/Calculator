@@ -8,15 +8,15 @@ class Calculator extends Component {
     constructor(props) {
         super(props); 
         this.state = {
-            displayValue: 0
+            displayValue: '0'
         }
     }
 
     inputValue(digit) {
         const {displayValue} = this.state
-        
+
         this.setState({
-            displayValue: (digit)
+            displayValue: displayValue === '0' ? String(digit) : displayValue + digit
         })
     }
 
