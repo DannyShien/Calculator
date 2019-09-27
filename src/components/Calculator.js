@@ -12,12 +12,22 @@ class Calculator extends Component {
         }
     }
 
-    inputValue(digit) {
+    inputValue = (digit) => {
         const {displayValue} = this.state
 
         this.setState({
             displayValue: displayValue === '0' ? String(digit) : displayValue + digit
         })
+    }
+
+    inputDot = () => {
+        const {displayValue} = this.state
+
+        if (displayValue.indexOf('.') === -1) {
+            this.setState({
+                displayValue: displayValue + '.' 
+            })
+        }
     }
 
     render() {
@@ -44,7 +54,7 @@ class Calculator extends Component {
                             <button className='calculator-keys key-8' onClick={() => this.inputValue(8)}>8</button>
                             <button className='calculator-keys key-9' onClick={() => this.inputValue(9)}>9</button>
                             <button className='calculator-keys key-0' onClick={() => this.inputValue(0)}>0</button>
-                            <button className='calculator-keys key-•' onClick={() => this.inputValue('.')}>•</button>
+                            <button className='calculator-keys key-•' onClick={() => this.inputDot('.')}>•</button>
                         </div>
                     </div>
                     <div className='key-set2'> 
