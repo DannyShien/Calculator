@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './Calculator.css'
+import { PreviousMap } from 'postcss';
 
 class Calculator extends Component {
     // state = {
@@ -8,6 +9,7 @@ class Calculator extends Component {
     constructor(props) {
         super(props); 
         this.state = {
+            value: null, 
             displayValue: '0',
             waitingForOperand: false, 
             operator: null
@@ -69,10 +71,35 @@ class Calculator extends Component {
     }
     
 
-    performOperator = (operator) => {
+    performOperator = (nextOperator) => {
+        const { displayValue, operator, value } = this.state
+        const nextValue = parseFloat(displayValue)
+
+        const operations = {
+            '/': (prevValue, nextValue ) => prevValue / nextValue,
+            '*': (prevValue, nextValue ) => prevValue * nextValue,
+            '+': (prevValue, nextValue ) => prevValue + nextValue,
+            '-': (prevValue, nextValue ) => prevValue - nextValue,
+            '=': (prevValue, nextValue ) => nextValue   
+        }
+
+        if (value == null) {
+            this.setState({
+                value: nextValue
+            })
+        }   else if (operator) {
+            const currentValue = value || 0
+            const calculatedValue = operations[operator](currentValue, nextValue)
+
+            this.setState({
+                value: calculatedValue, 
+                displayValue: String(calculatedValue)
+            })
+        }    
+
         this.setState({
             waitingForOperand: true,
-            operator: operator
+            operator: nextOperator
         })
     }
 
