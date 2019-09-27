@@ -53,14 +53,21 @@ class Calculator extends Component {
     }
 
     inputDot = () => {
-        const {displayValue} = this.state
+        const {displayValue, waitingForOperand} = this.state
 
-        if (displayValue.indexOf('.') === -1) {
+        if (waitingForOperand) {
             this.setState({
-                displayValue: displayValue + '.' 
+                displayValue: '.',
+                waitingForOperand: false
+            })
+        } else if (displayValue.indexOf('.') === -1) {
+            this.setState({
+                displayValue: displayValue + '.',
+                waitingForOperand: false 
             })
         }
     }
+    
 
     performOperator = (operator) => {
         this.setState({
@@ -74,7 +81,7 @@ class Calculator extends Component {
         return (
             <div className="App">    
             <div className='calculator'>
-                <pre>{JSON.stringify(this.state, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(this.state, null, 2)}</pre> */}
                 <div className='calculator-display'>{displayValue}</div>
                 <div className='calculator-keypad'>
                     <div className='key-set1'>
