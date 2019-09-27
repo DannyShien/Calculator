@@ -12,6 +12,29 @@ class Calculator extends Component {
         }
     }
 
+    clearDisplay = () => {
+        this.setState({ 
+            displayValue: '0'
+        })
+    }
+
+    toggleSign = () => {
+        const {displayValue} = this.state
+
+        this.setState({
+            displayValue: displayValue.charAt(0) === '-' ? displayValue.substr(1) : '-' + displayValue
+        })
+    }
+
+    inputPercent = () => {
+        const {displayValue} = this.state
+        const value = parseFloat(displayValue)
+
+        this.setState({ 
+            displayValue: String(value / 100)
+        })
+    }
+
     inputValue = (digit) => {
         const {displayValue} = this.state
 
@@ -39,9 +62,9 @@ class Calculator extends Component {
                 <div className='calculator-keypad'>
                     <div className='key-set1'>
                         <div className='function-keys'>
-                            <button className='calculator-keys'>A/C</button>
-                            <button className='calculator-keys'>±</button>
-                            <button className='calculator-keys'>%</button>
+                            <button className='calculator-keys' onClick={() => this.clearDisplay()}>A/C</button>
+                            <button className='calculator-keys' onClick={() => this.toggleSign()}>±</button>
+                            <button className='calculator-keys' onClick={() => this.inputPercent()}>%</button>
                         </div>
                         <div className='numeric-keys'>
                             <button className='calculator-keys key-1' onClick={() => this.inputValue(1)}>1</button>
